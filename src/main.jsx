@@ -310,16 +310,63 @@ function FormField({label,name,type="text",required=false,placeholder=""}){retur
 function Success({title,copy}){return <div className="success"><div className="success-icon"><Icon name="check" size={30}/></div><h2>{title}</h2><p>{copy}</p><div className="actions"><Button to="/">Return Home</Button><WhatsApp/></div></div>}
 
 function Appointment() {
-  const [sent,setSent]=useState(false); const [service,setService]=useState("Individual Counseling"); const [session,setSession]=useState("Online"); const [date,setDate]=useState(""); const [time,setTime]=useState("");
+  const [sent,setSent]=useState(false);
+  const [session,setSession]=useState("Online");
+  const [booking,setBooking]=useState("Yes, I want to book a session");
+  const [concerns,setConcerns]=useState([]);
+  const [date,setDate]=useState("");
+  const [time,setTime]=useState("");
+  const [gender,setGender]=useState("Female");
+  const [otherConcern,setOtherConcern]=useState("");
   const params=new URLSearchParams(window.location.search);
-  useEffect(()=>{if(params.get("mode")==="online")setSession("Online")},[]);
-  const invalid = date && ((new Date(date).getDay()===0) || (session==="Online" && new Date(date).getDay()===6));
-  const submit=e=>{e.preventDefault(); if(invalid)return; setSent(true)};
-  useMeta("Book an Appointment | Flourish Well Counseling Center","Request an in-person or online counseling appointment with Flourish Well.");
-  return <><PageHero eyebrow="BOOK AN APPOINTMENT" title={<>Take the first step <em>at your pace.</em></>} copy="Choose a service, preferred session type, date and time. A member of our team will follow up to confirm availability."/>
-  <section className="section"><div className="container appointment-layout"><div className="form-side">{sent?<Success title="Appointment request received." copy="Thank you. Your request is ready for follow-up. Please also use WhatsApp or call if you need a quicker response."/>:<form className="form-card" onSubmit={submit}><div className="step-label">01 · SERVICE</div><label>What would you like support with?<select value={service} onChange={e=>setService(e.target.value)}>{["Individual Counseling","Career Counseling","Family Counseling","Addiction Counseling","Online Counseling","In-Person Counseling","Group Counseling","Training / Course","Other"].map(x=><option key={x}>{x}</option>)}</select></label><div className="step-label">02 · SESSION</div><div className="segmented"><button type="button" className={session==="Online"?"active":""} onClick={()=>setSession("Online")}>Online</button><button type="button" className={session==="In-Person"?"active":""} onClick={()=>setSession("In-Person")}>In-Person</button></div><div className="step-label">03 · YOUR DETAILS</div><div className="two-col"><FormField label="Full Name" name="name" required/><FormField label="Phone" name="phone" required/><FormField label="WhatsApp" name="whatsapp"/><FormField label="Email" name="email" type="email"/><label>Age Group<select defaultValue="Adult"><option>Child</option><option>Teenager</option><option>University student</option><option>Adult</option><option>Parent / Family</option><option>Professional</option></select></label></div><div className="step-label">04 · PREFERRED DATE & TIME</div><div className="two-col"><label>Preferred Date<input type="date" required value={date} onChange={e=>setDate(e.target.value)}/></label><label>Preferred Time<select required value={time} onChange={e=>setTime(e.target.value)}><option value="">Select a time</option>{(session==="Online"?["6:00 PM","6:30 PM","7:00 PM","7:30 PM"]:["10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM"]).map(x=><option key={x}>{x}</option>)}</select></label></div>{invalid&&<div className="form-error">{session==="Online"?"Online sessions are currently available Monday–Friday.":"In-person sessions are currently available Monday–Saturday."}</div>}<div className="step-label">05 · MESSAGE</div><label>How can we support you?<textarea rows="5" placeholder="Briefly tell us what you'd like support with."/><span className="privacy-note">Please avoid sharing highly sensitive medical information in this form. A member of our team will discuss your concerns privately during your consultation.</span></label><button className="btn primary" type="submit" disabled={!!invalid}>Request Appointment <Icon name="arrow" size={17}/></button></form>}</div><aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>For a faster inquiry, WhatsApp or call the center during office hours.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">OFFICE HOURS</span><h3>When we're available</h3><p><b>In-person</b><br/>Mon–Sat · 10:00 AM–5:00 PM</p><p><b>Online</b><br/>Mon–Fri · 6:00 PM–8:00 PM</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
-}
 
+  useEffect(()=>{if(params.get("mode")==="online")setSession("Online")},[]);
+
+  const toggleConcern=value=>{
+    setConcerns(prev=>prev.includes(value)?prev.filter(x=>x!==value):[...prev,value]);
+  };
+  const invalid = booking==="Yes, I want to book a session" && date && ((new Date(date).getDay()===0) || (session==="Online" && new Date(date).getDay()===6));
+  const submit=e=>{e.preventDefault(); if(invalid)return; setSent(true)};
+
+  useMeta("Book an Appointment | Flourish Well Counseling Center","Request an individual psychological counseling session with Flourish Well.");
+
+  return <><PageHero eyebrow="BOOK AN APPOINTMENT" title={<>Take the first step <em>at your pace.</em></>} copy="Please complete this form to request an individual counseling session. The information helps us understand your concerns and arrange an appropriate session."/>
+  <section className="section"><div className="container appointment-layout"><div className="form-side">{sent?<Success title="Appointment request received." copy="Thank you. Your request has been recorded on this page. Please also use WhatsApp or call 03196163938 so our team can confirm availability and appointment details."/>:<form className="form-card" onSubmit={submit}>
+    <div className="step-label">01 · PERSONAL INFORMATION</div>
+    <div className="two-col">
+      <FormField label="Name" name="name" required/>
+      <FormField label="Age" name="age" type="number" required/>
+      <label>Gender<select value={gender} onChange={e=>setGender(e.target.value)} required><option>Female</option><option>Male</option><option>Other</option><option>Prefer not to say</option></select></label>
+      <FormField label="Phone / WhatsApp" name="phone" required/>
+      <FormField label="Email" name="email" type="email"/>
+    </div>
+
+    <div className="step-label">02 · MENTAL HEALTH CONCERN</div>
+    <fieldset className="checkbox-group"><legend>What is the main concern you would like support with?</legend>
+      {["Anxiety","Depression","Addiction","Other"].map(x=><label key={x}><input type="checkbox" checked={concerns.includes(x)} onChange={()=>toggleConcern(x)}/><span>{x}</span></label>)}
+    </fieldset>
+    {concerns.includes("Other")&&<FormField label="If you selected Other, please specify" name="otherConcern"/>}
+
+    <div className="step-label">03 · YOUR FEELINGS & SYMPTOMS</div>
+    <label>Please describe your feelings, symptoms, concerns, or anything you would like us to know.<textarea rows="6" required placeholder="You may briefly describe when the symptoms started, how they affect your daily life, and anything that you feel is important for your session."/><span className="privacy-note">Please avoid sharing highly sensitive medical information in this form. A member of our team will discuss your concerns privately during your consultation.</span></label>
+
+    <div className="step-label">04 · SESSION PREFERENCE</div>
+    <fieldset className="choice-group"><legend>Do you want to take a counseling session?</legend>
+      {["Yes, I want to book a session","I would like more information first"].map(x=><label key={x}><input type="radio" name="booking" value={x} checked={booking===x} onChange={e=>setBooking(e.target.value)} required/><span>{x}</span></label>)}
+    </fieldset>
+    <div className="segmented"><button type="button" className={session==="Online"?"active":""} onClick={()=>setSession("Online")}>Online — Rs. 3,000</button><button type="button" className={session==="In-Person"?"active":""} onClick={()=>setSession("In-Person")}>Physical / In-person — Rs. 4,000</button></div>
+
+    {booking==="Yes, I want to book a session"&&<><div className="step-label">05 · APPOINTMENT REQUEST</div>
+    <div className="two-col"><label>Preferred Date<input type="date" required value={date} onChange={e=>setDate(e.target.value)}/></label><label>Preferred Time<select required value={time} onChange={e=>setTime(e.target.value)}><option value="">Select a time</option>{(session==="Online"?["6:00 PM","6:30 PM","7:00 PM","7:30 PM"]:["10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM"]).map(x=><option key={x}>{x}</option>)}</select></label></div>
+    {invalid&&<div className="form-error">{session==="Online"?"Online sessions are currently available Monday–Friday.":"In-person sessions are currently available Monday–Saturday."}</div>}</>}
+
+    <div className="step-label">06 · ADDITIONAL MESSAGE</div>
+    <label>Any additional message or request<textarea rows="4" placeholder="Optional"/></label>
+    <button className="btn primary" type="submit" disabled={!!invalid}>Request Appointment <Icon name="arrow" size={17}/></button>
+    <p className="privacy-note">This form is for appointment requests and initial information only. Completion does not by itself confirm an appointment. Our team will contact you to confirm availability and appointment details.</p>
+  </form>}</div>
+  <aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>To book your appointment, please mention your preferred session mode and preferred date/time.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">SESSION FEES</span><h3>Individual sessions</h3><p><b>Online</b><br/>Rs. 3,000</p><p><b>Physical / In-person</b><br/>Rs. 4,000</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
+}
 function Psychologist() {
   useMeta("Meet Your Psychologist | Summen Waseem | Flourish Well","Professional profile for Summen Waseem, Clinical Psychologist, Psychotherapist and Addiction Counselor.");
   return <><PageHero eyebrow="MEET YOUR PSYCHOLOGIST" title={<>Summen <em>Waseem</em></>} copy="Clinical Psychologist · Psychotherapist · Addiction Counselor"/>
