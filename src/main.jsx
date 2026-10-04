@@ -124,7 +124,10 @@ function useMeta(title, description) {
 
 function ScrollTop() {
   const {pathname}=useLocation();
-  useEffect(()=>window.scrollTo({top:0,behavior:"instant"}),[pathname]);
+  useEffect(()=>{
+    const id=window.requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:"auto"}));
+    return ()=>window.cancelAnimationFrame(id);
+  },[pathname]);
   return null;
 }
 
