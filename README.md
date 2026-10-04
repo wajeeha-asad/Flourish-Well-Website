@@ -13,7 +13,6 @@ A complete React + Vite MVP website for Flourish Well Counseling Center, refresh
 - Home
 - About
 - Services
-- Career Counseling
 - Training & Courses
 - Course details
 - Course enrollment
