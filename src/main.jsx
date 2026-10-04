@@ -93,7 +93,7 @@ function ScrollTop() {
 
 function Header() {
   const [open,setOpen]=useState(false);
-  const nav=[["About","/about"],["Services","/services"],["Career Counseling","/career-counseling"],["Training & Courses","/courses"],["Resources","/resources"]];
+  const nav=[["About","/about"],["Services","/services"],["Training & Courses","/courses"],["Resources","/resources"]];
   return <header className="header">
     <div className="nav-wrap">
       <Link to="/" className="brand brand-logo" onClick={()=>setOpen(false)}>
@@ -127,7 +127,7 @@ function Footer() {
         <p>Your mental health matters.</p>
         <p className="muted">A calm, professional space for counseling, career direction, and growth.</p>
       </div>
-      <div><h4>Explore</h4><Link to="/about">About</Link><Link to="/services">Services</Link><Link to="/career-counseling">Career Counseling</Link><Link to="/courses">Training & Courses</Link><Link to="/resources">Resources</Link></div>
+      <div><h4>Explore</h4><Link to="/about">About</Link><Link to="/services">Services</Link><Link to="/courses">Training & Courses</Link><Link to="/resources">Resources</Link></div>
       <div><h4>Get Support</h4><Link to="/book-appointment">Book Appointment</Link><WhatsApp label="WhatsApp" className="footer-wa"/><a href={`tel:${PHONE}`}>Call</a><Link to="/faq">FAQ</Link></div>
       <div><h4>Contact</h4><p>{address}</p><a href={`tel:${PHONE}`}>{PHONE}</a><a href={`mailto:${EMAIL}`}>{EMAIL}</a><p><b>Office</b><br/>Mon–Sat · 10:00 AM–5:00 PM</p><p><b>Online</b><br/>Mon–Fri · 6:00 PM–8:00 PM</p></div>
     </div>
@@ -181,15 +181,6 @@ function Home() {
 
     <section className="marquee-section"><div className="marquee"><div>{areas.map(a=><span key={a}>{a} <b>•</b></span>)}{areas.map(a=><span key={"x"+a}>{a} <b>•</b></span>)}</div></div></section>
 
-    <section className="section career-feature">
-      <div className="container feature-grid">
-        <div className="feature-image"><img src={img.career} alt="University students discussing their future"/></div>
-        <div className="feature-copy"><span className="eyebrow">CAREER COUNSELING</span><h2>Find Direction.<br/>Build Confidence.<br/><em>Choose Your Future.</em></h2><p>Choosing a career can feel overwhelming. Career counseling helps students and young professionals understand their strengths, interests, personality, goals, and possible career pathways so they can make more informed decisions.</p>
-          <ul className="check-list">{["Career exploration","Subject selection","Strength & interest assessment","Career planning & transitions"].map(x=><li key={x}><Icon name="check" size={16}/>{x}</li>)}</ul><Button to="/career-counseling">Book Career Counseling</Button>
-        </div>
-        <div className="feature-small"><img src={img.desk} alt="Student writing in a notebook"/></div>
-      </div>
-    </section>
 
     <section className="section split-section">
       <div className="container split-grid">
@@ -254,13 +245,6 @@ function Services() {
   return <><PageHero eyebrow="HOW WE CAN SUPPORT YOU" title={<>Counseling that meets you <em>where you are.</em></>} copy="Professional psychological support for children, teenagers, students, adults, families and professionals."/>
   <section className="section"><div className="container service-page-grid">{services.map(([t,d,i])=><article className="service-detail" key={t}><div className="icon-circle"><Icon name={i}/></div><h2>{t}</h2><p>{d}</p><Link to="/book-appointment">Book this service <Icon name="arrow" size={15}/></Link></article>)}</div></section>
   <section className="section soft"><div className="container"><SectionHead eyebrow="AREAS WE HELP WITH" title="Support for life's difficult seasons"/><div className="areas-grid">{areas.map(a=><span key={a}><Icon name="leaf" size={15}/>{a}</span>)}</div></div></section><FinalCTA/></>
-}
-
-function Career() {
-  useMeta("Career Counseling in Multan & Online | Flourish Well","Career counseling for school students, university students, graduates and young professionals.");
-  return <><PageHero eyebrow="CAREER COUNSELING" title={<>Find Direction. Build Confidence. <em>Choose Your Future.</em></>} copy="Helping students and young professionals understand themselves and make informed educational and career decisions."/>
-  <section className="section"><div className="container feature-grid career-page"><div className="feature-image"><img src={img.career} alt="Students discussing career choices"/></div><div className="feature-copy"><span className="eyebrow">WHO IT'S FOR</span><h2>From uncertainty to a clearer next step.</h2><p>Choosing a career can feel overwhelming. We help you explore strengths, interests, personality, goals and possible pathways so you can make more informed decisions.</p><div className="audience-tags">{["School students","University students","Fresh graduates","Young professionals","Career changers"].map(x=><span key={x}>{x}</span>)}</div><Button to="/book-appointment">Book Career Counseling</Button></div></div></section>
-  <section className="section sage"><div className="container"><SectionHead eyebrow="WHAT WE HELP WITH" title="Build a direction that fits you."/><div className="career-list">{["Career exploration","Academic direction","Subject selection","University / career decisions","Strength identification","Interest exploration","Career planning","Professional development","Career transitions"].map(x=><div key={x}><Icon name="check" size={17}/>{x}</div>)}</div></div></section><FinalCTA/></>
 }
 
 function Courses() {
@@ -334,7 +318,7 @@ function NotFound(){return <><PageHero eyebrow="404" title={<>This page took a <
 
 function App(){
   return <BrowserRouter><ScrollTop/><Layout><Routes>
-    <Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/career-counseling" element={<Career/>}/><Route path="/courses" element={<Courses/>}/><Route path="/courses/:slug" element={<CourseDetail/>}/><Route path="/courses/:slug/enroll" element={<Enrollment/>}/><Route path="/psychologist" element={<Psychologist/>}/><Route path="/resources" element={<Resources/>}/><Route path="/faq" element={<FAQ/>}/><Route path="/book-appointment" element={<Appointment/>}/><Route path="/contact" element={<Contact/>}/><Route path="/privacy" element={<Legal type="privacy"/>}/><Route path="/terms" element={<Legal type="terms"/>}/><Route path="*" element={<NotFound/>}/>
+    <Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/courses" element={<Courses/>}/><Route path="/courses/:slug" element={<CourseDetail/>}/><Route path="/courses/:slug/enroll" element={<Enrollment/>}/><Route path="/psychologist" element={<Psychologist/>}/><Route path="/resources" element={<Resources/>}/><Route path="/faq" element={<FAQ/>}/><Route path="/book-appointment" element={<Appointment/>}/><Route path="/contact" element={<Contact/>}/><Route path="/privacy" element={<Legal type="privacy"/>}/><Route path="/terms" element={<Legal type="terms"/>}/><Route path="*" element={<NotFound/>}/>
   </Routes></Layout></BrowserRouter>
 }
 createRoot(document.getElementById("root")).render(<App/>);
