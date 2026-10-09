@@ -248,7 +248,7 @@ function PsychologistPreview() {
 }
 
 function TrainingPreview() {
-  return <section className="section training-preview"><div className="container"><div className="training-top"><div><span className="eyebrow">TRAINING & COURSES</span><h2>Learn. Grow. <em>Build Your Practice.</em></h2><p>Practical psychology and mental-health training designed for students, professionals, educators, caregivers, and aspiring counselors.</p></div><Button to="/courses" variant="outline">View All Courses</Button></div><div className="course-grid">{courses.map(c=><CourseCard key={c.slug} course={c}/>)}</div></div></section>
+  return <section className="section training-preview"><div className="container"><div className="training-top"><div><span className="eyebrow">TRAINING & COURSES</span><h2>Learn. Grow. <em>Build Your Practice.</em></h2><p>Online psychology and mental-health training designed for students, professionals, educators, caregivers, and aspiring counselors.</p></div><Button to="/courses" variant="outline">View All Courses</Button></div><div className="course-grid">{courses.map(c=><CourseCard key={c.slug} course={c}/>)}</div></div></section>
 }
 
 function CourseCard({course}) {
@@ -288,8 +288,8 @@ function Services() {
 
 function Courses() {
   const [filter,setFilter]=useState("All");
-  useMeta("Psychology & Mental Health Training Courses | Flourish Well","Explore practical psychology, psychotherapy, assessment and clinical psychology courses.");
-  return <><PageHero eyebrow="TRAINING & COURSES" title={<>Learn. Grow. <em>Build Your Practice.</em></>} copy="Structured psychology and clinical training for psychology students, graduates, counselors and mental-health professionals."/>
+  useMeta("Psychology & Mental Health Training Courses | Flourish Well","Explore online psychology, psychotherapy, assessment and clinical psychology courses.");
+  return <><PageHero eyebrow="TRAINING & COURSES" title={<>Learn. Grow. <em>Build Your Practice.</em></>} copy="Online psychology and clinical training for psychology students, graduates, counselors and mental-health professionals."/>
   <section className="section"><div className="container"><div className="filter-row"><button className={filter==="All"?"active":""} onClick={()=>setFilter("All")}>All courses</button><button className={filter==="2 months"?"active":""} onClick={()=>setFilter("2 months")}>2 months</button><button className={filter==="3 months"?"active":""} onClick={()=>setFilter("3 months")}>3 months</button><button className={filter==="6 months"?"active":""} onClick={()=>setFilter("6 months")}>6 months</button></div><div className="course-grid course-grid-large">{courses.filter(c=>filter==="All"||c.duration===filter).map(c=><CourseCard key={c.slug} course={c}/>)}</div></div></section></>
 }
 
