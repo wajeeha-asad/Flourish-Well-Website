@@ -197,3 +197,12 @@ input:focus,select:focus,textarea:focus{border-color:#75a88e;box-shadow:0 0 0 4p
   .hero-inset{bottom:-5px}
   .footer-logo{width:185px}
 }
+
+
+/* Online-only service presentation and placeholder for Duaa Masood's photo */
+.split-grid{grid-template-columns:minmax(0,1fr);max-width:1000px;margin-left:auto;margin-right:auto}
+.profile-image-placeholder{min-height:380px;border-radius:18px;background:linear-gradient(145deg,#e5e9dc,#f5ebdd);display:grid;place-items:center;text-align:center;color:var(--green);padding:24px}
+.profile-image-placeholder>div{display:flex;flex-direction:column;align-items:center;gap:12px}
+.profile-image-placeholder .eyebrow{font-size:10px;letter-spacing:.12em}
+.profile-image-placeholder p{font:400 23px Lora,serif;margin:0}
+.duaa-profile{margin-top:35px}
