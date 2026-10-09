@@ -229,6 +229,7 @@ function Home() {
     </section>
 
     <PsychologistPreview/>
+    <DuaaHomePreview/>
     <TrainingPreview/>
     <B2B/>
     <Testimonials/>
