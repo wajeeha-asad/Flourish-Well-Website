@@ -206,3 +206,10 @@ input:focus,select:focus,textarea:focus{border-color:#75a88e;box-shadow:0 0 0 4p
 .profile-image-placeholder .eyebrow{font-size:10px;letter-spacing:.12em}
 .profile-image-placeholder p{font:400 23px Lora,serif;margin:0}
 .duaa-profile{margin-top:35px}
+
+
+/* Keep psychologist portraits crisp and avoid unnecessary cropping */
+.psych-photo>img{object-fit:contain;object-position:center top;background:#f5f1e9;image-rendering:auto}
+.profile-image img{object-fit:contain;object-position:center top;background:#f5f1e9;image-rendering:auto}
+.duaa-home-photo .profile-image-placeholder{width:80%;min-height:430px}
+@media(max-width:760px){.duaa-home-photo .profile-image-placeholder{width:100%;min-height:350px}}
