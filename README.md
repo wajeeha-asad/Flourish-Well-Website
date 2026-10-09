@@ -1,44 +1,74 @@
-# Flourish Well Counseling Center — MVP v1 (Modern Brand Refresh)
+# Flourish Well — Counseling & Career Development Website
 
-A complete React + Vite MVP website for Flourish Well Counseling Center, refreshed around the supplied official logo and its visual palette.
+A responsive website MVP for **Flourish Well**, designed to present counseling services, professional training, learning resources, and appointment/contact information through a calm, accessible, brand-led experience.
 
-## Brand direction
-- Uses the supplied Flourish Well logo assets in the header, footer and favicon.
-- Primary colors: deep forest green + fresh leaf green, supported by soft sage, warm ivory and restrained earthy beige.
-- Modern editorial layout with rounded cards, subtle depth, generous spacing and responsive typography.
-- No orbit/rotating decorative system from the earlier concept.
-- Existing photography is used as a visual placeholder until final client photography is supplied.
+> **Project type:** Real-client website · Frontend development · MVP in progress  
+> **Live preview:** [flourish-well-website.vercel.app](https://flourish-well-website.vercel.app)
 
-## Included routes
+## Overview
+
+This project refreshes the digital experience for Flourish Well Counseling Center. The interface uses a warm, grounded visual direction—deep forest green, fresh leaf green, soft sage, warm ivory, and earthy neutrals—with responsive layouts and clear navigation.
+
+The current version is an MVP. Content, imagery, credentials, testimonials, and contact details must be reviewed and approved by the client before production launch.
+
+## Main pages and flows
+
 - Home
 - About
 - Services
 - Training & Courses
-- Course details
-- Course enrollment
-- Psychologist
+- Course details and enrollment
+- Psychologist profile
 - Resources
-- FAQ
-- Book Appointment
+- Frequently Asked Questions
+- Appointment booking
 - Contact
 - Privacy Policy
 - Terms & Conditions
 
+## Design goals
+
+- **Trustworthy and calm:** a restrained natural palette and clear information hierarchy.
+- **Responsive:** usable layouts across desktop and mobile screen sizes.
+- **Easy to navigate:** services, training, resources, and contact paths are discoverable.
+- **Maintainable:** reusable React components and a Vite development workflow.
+- **Client-conscious:** editable content areas and no unsupported professional claims presented as verified facts.
+
+## Tech stack
+
+- React
+- Vite
+- JavaScript
+- CSS / responsive UI styling
+
 ## Run locally
 
+Prerequisites: Node.js and npm.
+
 ```bash
+git clone https://github.com/wajeeha-asad/Flourish-Well-Website.git
+cd Flourish-Well-Website
 npm install
 npm run dev
 ```
 
-Then open the local Vite URL shown in the terminal.
+Open the local URL printed in your terminal.
 
-## Production build
+## Build for production
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Important content note
-The PRD contains credentials, experience details, testimonials and contact information that should be verified/approved by the client before production launch. This MVP keeps those areas clearly editable and avoids treating unverified professional claims as independently verified.
+## Project status
+
+**MVP / in progress.** The deployed preview is available for review, but deployment does not mean the website is client-approved or production-ready. Confirm all real content, imagery, booking/contact behavior, privacy wording, and accessibility details with the client before launch.
+
+## Contribution
+
+This is a client project. Public screenshots and any future case study should respect the client's approval and confidentiality requirements.
+
+---
+
+Built with care for a clearer, more welcoming digital experience.
