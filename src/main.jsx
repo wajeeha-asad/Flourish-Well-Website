@@ -318,7 +318,7 @@ function Enrollment() {
       <><p><b>Selected course:</b> {c.title}</p>
       <p className="privacy-note">Complete the form below. Your response is sent to Flourish Well's Google Forms response records; you will stay on this website.</p>
       <iframe title="Course registration response" name={frameId} id={frameId} className="form-submit-frame" onLoad={()=>{if(submitting){setSubmitting(false);setSent(true)}}} />
-      <form className="website-google-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfCxPFrkK5FXE9rgTr2VhrS5Pm3VYxL-js0JIhvSGORytp82w/formResponse" method="POST" target={frameId} onSubmit={()=>setSubmitting(true}>
+      <form className="website-google-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfCxPFrkK5FXE9rgTr2VhrS5Pm3VYxL-js0JIhvSGORytp82w/formResponse" method="POST" target={frameId} onSubmit={()=>setSubmitting(true)}>
         <FormField label="Full name" name="entry.1327648154" required placeholder="Your full name"/>
         <FormField label="Age" name="entry.88431045" type="number" required placeholder="Your age"/>
         <FormField label="Educational qualification" name="entry.1874848888" required placeholder="e.g. BS Psychology"/>
