@@ -216,3 +216,13 @@ input:focus,select:focus,textarea:focus{border-color:#75a88e;box-shadow:0 0 0 4p
 
 /* Psychologist sections are text-only; keep the profile content full-width. */
 .psych-grid,.psych-profile{grid-template-columns:1fr;gap:28px}
+
+
+/* Website-hosted forms that submit into the existing Google Forms response endpoints */
+.website-google-form{display:flex;flex-direction:column;gap:17px;margin-top:24px}
+.website-google-form>label{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:650;color:var(--text)}
+.website-google-form input,.website-google-form select,.website-google-form textarea{width:100%;font:inherit;font-size:13px;color:var(--text);box-sizing:border-box}
+.website-google-form textarea{resize:vertical;min-height:82px}
+.website-google-form .btn{align-self:flex-start;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700}
+.website-google-form .btn:disabled{opacity:.65;cursor:wait}
+.form-submit-frame{position:absolute;width:1px;height:1px;border:0;opacity:0;pointer-events:none}
