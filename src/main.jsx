@@ -337,7 +337,6 @@ function Success({title,copy}){return <div className="success"><div className="s
 function Appointment() {
   const [submitting,setSubmitting]=useState(false); const [sent,setSent]=useState(false);
   const frameId="psychological-registration-response-frame";
-  const [session,setSession]=useState("Online (3000)");
   useMeta("Book an Appointment | Flourish Well Counseling Center","Register for psychological counseling with Flourish Well.");
   return <><PageHero eyebrow="BOOK AN APPOINTMENT" title={<>Take the first step <em>at your pace.</em></>} copy="Request a counseling session using the form on this page."/>
   <section className="section"><div className="container appointment-layout"><div className="form-side"><div className="form-card"><span className="eyebrow">PSYCHOLOGICAL REGISTRATION</span><h3>Register for psychological counseling</h3>
@@ -351,15 +350,15 @@ function Appointment() {
       <label>What would you like support with?<textarea name="entry.9166208" rows="3" required placeholder="Briefly describe your main concern"/></label>
       <label>Feelings or symptoms you'd like to share<textarea name="entry.716390939" rows="3" placeholder="Optional"/></label>
       <label>Additional notes<textarea name="entry.1022124391" rows="3" placeholder="Optional"/></label>
-      <label>Session type<select name="entry.1735840751" value={session} onChange={e=>setSession(e.target.value)} required><option value="Online (3000)">Online (Rs. 3,000)</option><option value="Physical (4000)">Physical (Rs. 4,000)</option></select></label>
+      <label>Session type<select name="entry.1735840751" defaultValue="Online (3000)" required><option value="Online (3000)">Online (Rs. 3,000)</option></select></label>
       <FormField label="Phone / WhatsApp number" name="entry.1815245798" type="tel" required placeholder="Your contact number"/>
-      <input type="hidden" name="entry.1871906301" value={session}/>
+      <input type="hidden" name="entry.1871906301" value="Online (3000)"/>
       <label>Payment details or confirmation<input name="entry.1502669982" defaultValue="For online session jazz cash 03016063938" required/></label>
       <p className="privacy-note">Submitting a request does not confirm an appointment. The center will contact you to confirm availability. Avoid including detailed medical history or other highly sensitive information here.</p>
       <button className="btn primary" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit Appointment Request"} <Icon name="arrow" size={17}/></button>
     </form></>}
   </div></div>
-  <aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>To ask about availability, share your preferred date and time for an online session.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">SESSION FEES</span><h3>Individual sessions</h3><p><b>Online</b><br/>Rs. 3,000</p><p><b>Physical</b><br/>Rs. 4,000</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
+  <aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>To ask about availability, share your preferred date and time for an online session.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">SESSION FEES</span><h3>Individual sessions</h3><p><b>Online</b><br/>Rs. 3,000</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
 }
 function Psychologist() {
   useMeta("Meet Your Psychologists | Flourish Well","Professional profiles for the psychologists associated with Flourish Well.");
