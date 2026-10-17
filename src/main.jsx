@@ -309,18 +309,57 @@ function CourseDetail() {
 
 function Enrollment() {
   const {slug}=useParams(); const c=courses.find(x=>x.slug===slug)||courses[0];
+  const [submitting,setSubmitting]=useState(false); const [sent,setSent]=useState(false);
+  const frameId="course-registration-response-frame";
   useMeta(`Enroll — ${c.title} | Flourish Well`,"Course enrollment request for Flourish Well Counseling Center.");
-  return <><PageHero eyebrow="COURSE ENROLLMENT" title={<>Enroll in <em>{c.title}</em></>} copy="Complete the official registration form to submit your course application."/><section className="section"><div className="container form-wrap"><div className="form-card"><span className="eyebrow">OFFICIAL REGISTRATION</span><h3>Register for a course</h3><p>Your registration will be submitted through Flourish Well's Google Form and saved to the Google Sheet connected to that form.</p><p><b>Selected course:</b> {c.title}</p><a className="btn primary" href="https://forms.gle/XJJKLfs1QDyE16Hr5" target="_blank" rel="noreferrer">Open Course Registration Form <Icon name="arrow" size={17}/></a><p className="privacy-note" style={{marginTop:18}}>The Google Form opens in a new tab. Complete and submit it there so your response is recorded.</p></div></div></section></>
+  return <><PageHero eyebrow="COURSE ENROLLMENT" title={<>Enroll in <em>{c.title}</em></>} copy="Complete your registration right here on the Flourish Well website."/>
+    <section className="section"><div className="container form-wrap"><div className="form-card"><span className="eyebrow">COURSE REGISTRATION</span><h3>Register for a course</h3>
+      {sent ? <Success title="Registration submitted" copy="Thank you. Your response has been sent to the registration form. The team will contact you about next steps."/> :
+      <><p><b>Selected course:</b> {c.title}</p>
+      <p className="privacy-note">Complete the form below. Your response is sent to Flourish Well's Google Forms response records; you will stay on this website.</p>
+      <iframe title="Course registration response" name={frameId} id={frameId} className="form-submit-frame" onLoad={()=>{if(submitting){setSubmitting(false);setSent(true)}}} />
+      <form className="website-google-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfCxPFrkK5FXE9rgTr2VhrS5Pm3VYxL-js0JIhvSGORytp82w/formResponse" method="POST" target={frameId} onSubmit={()=>setSubmitting(true}>
+        <FormField label="Full name" name="entry.1327648154" required placeholder="Your full name"/>
+        <FormField label="Age" name="entry.88431045" type="number" required placeholder="Your age"/>
+        <FormField label="Educational qualification" name="entry.1874848888" required placeholder="e.g. BS Psychology"/>
+        <label>Course you're registering for<select name="entry.1166790118" defaultValue={c.title} required><option value={c.title}>{c.title}</option>{courses.filter(x=>x.title!==c.title).map(x=><option key={x.slug} value={x.title}>{x.title}</option>)}</select></label>
+        <label>Registration type / fee<select name="entry.1287407894" defaultValue="Live (5000)" required><option value="Live (5000)">Live (5000)</option></select></label>
+        <label>Payment details or confirmation<input name="entry.1582762292" required defaultValue="Jazz Cash (03016063938) and send screenshot" /></label>
+        <p className="privacy-note">If payment is required, follow the instructions shown above and contact the center if you need help. Please don't enter sensitive personal information.</p>
+        <button className="btn primary" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit Registration"} <Icon name="arrow" size={17}/></button>
+      </form></>}
+    </div></div></section></>
 }
 
 function FormField({label,name,type="text",required=false,placeholder=""}){return <label>{label}<input name={name} type={type} required={required} placeholder={placeholder}/></label>}
 function Success({title,copy}){return <div className="success"><div className="success-icon"><Icon name="check" size={30}/></div><h2>{title}</h2><p>{copy}</p><div className="actions"><Button to="/">Return Home</Button><WhatsApp/></div></div>}
 
 function Appointment() {
+  const [submitting,setSubmitting]=useState(false); const [sent,setSent]=useState(false);
+  const frameId="psychological-registration-response-frame";
+  const [session,setSession]=useState("Online (3000)");
   useMeta("Book an Appointment | Flourish Well Counseling Center","Register for psychological counseling with Flourish Well.");
-  return <><PageHero eyebrow="BOOK AN APPOINTMENT" title={<>Take the first step <em>at your pace.</em></>} copy="Use the official psychological registration form to share your details and request a counseling session."/>
-  <section className="section"><div className="container appointment-layout"><div className="form-side"><div className="form-card"><span className="eyebrow">OFFICIAL PSYCHOLOGICAL REGISTRATION</span><h3>Register for psychological counseling</h3><p>Click below to complete Flourish Well's online psychological registration form. When you submit it, your response will be recorded in the Google Sheet connected to that form.</p><a className="btn primary" href="https://forms.gle/WTBNEqAcW595kowe8" target="_blank" rel="noreferrer">Open Psychological Registration Form <Icon name="arrow" size={17}/></a><p className="privacy-note" style={{marginTop:18}}>The Google Form opens in a new tab. Your appointment is not confirmed until the team contacts you to confirm availability. Please avoid sharing more sensitive information than the form requests.</p></div></div>
-  <aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>To ask about availability, share your preferred date and time for an online session.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">SESSION FEES</span><h3>Individual sessions</h3><p><b>Online</b><br/>Rs. 3,000</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
+  return <><PageHero eyebrow="BOOK AN APPOINTMENT" title={<>Take the first step <em>at your pace.</em></>} copy="Request a counseling session using the form on this page."/>
+  <section className="section"><div className="container appointment-layout"><div className="form-side"><div className="form-card"><span className="eyebrow">PSYCHOLOGICAL REGISTRATION</span><h3>Register for psychological counseling</h3>
+    {sent ? <Success title="Request submitted" copy="Thank you. Your response has been sent to the registration form. Your appointment is not confirmed until the team contacts you."/> :
+    <><p className="privacy-note">Fill this in on Flourish Well. Your response is sent to the existing Google Forms response records. Please share only the information requested.</p>
+    <iframe title="Psychological registration response" name={frameId} id={frameId} className="form-submit-frame" onLoad={()=>{if(submitting){setSubmitting(false);setSent(true)}}} />
+    <form className="website-google-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfjsIVn2_LA2y5RYuvATTu1FgWedMJrSQBhZckKL07rpIMvrA/formResponse" method="POST" target={frameId} onSubmit={()=>setSubmitting(true)}>
+      <FormField label="Full name" name="entry.170357160" required placeholder="Your full name"/>
+      <FormField label="Age" name="entry.294180438" type="number" required placeholder="Your age"/>
+      <label>Gender<input name="entry.1664568835" required placeholder="Your gender"/></label>
+      <label>What would you like support with?<textarea name="entry.9166208" rows="3" required placeholder="Briefly describe your main concern"/></label>
+      <label>Feelings or symptoms you'd like to share<textarea name="entry.716390939" rows="3" placeholder="Optional"/></label>
+      <label>Additional notes<textarea name="entry.1022124391" rows="3" placeholder="Optional"/></label>
+      <label>Session type<select name="entry.1735840751" value={session} onChange={e=>setSession(e.target.value)} required><option value="Online (3000)">Online (Rs. 3,000)</option><option value="Physical (4000)">Physical (Rs. 4,000)</option></select></label>
+      <FormField label="Phone / WhatsApp number" name="entry.1815245798" type="tel" required placeholder="Your contact number"/>
+      <input type="hidden" name="entry.1871906301" value={session}/>
+      <label>Payment details or confirmation<input name="entry.1502669982" defaultValue="For online session jazz cash 03016063938" required/></label>
+      <p className="privacy-note">Submitting a request does not confirm an appointment. The center will contact you to confirm availability. Avoid including detailed medical history or other highly sensitive information here.</p>
+      <button className="btn primary" type="submit" disabled={submitting}>{submitting?"Submitting…":"Submit Appointment Request"} <Icon name="arrow" size={17}/></button>
+    </form></>}
+  </div></div>
+  <aside className="appointment-side"><div className="side-card"><span className="eyebrow">NEED A QUICKER RESPONSE?</span><h3>Talk to us directly.</h3><p>To ask about availability, share your preferred date and time for an online session.</p><WhatsApp label="Chat on WhatsApp"/><a className="side-link" href={`tel:${PHONE}`}><Icon name="phone" size={18}/>{PHONE}</a></div><div className="side-card"><span className="eyebrow">SESSION FEES</span><h3>Individual sessions</h3><p><b>Online</b><br/>Rs. 3,000</p><p><b>Physical</b><br/>Rs. 4,000</p><p className="muted">Typical session length: approximately 45 minutes.</p></div></aside></div></section></>
 }
 function Psychologist() {
   useMeta("Meet Your Psychologists | Flourish Well","Professional profiles for the psychologists associated with Flourish Well.");
